@@ -103,9 +103,9 @@
 			can also employ aliasing -->
 		<alias name="triangle" alias="triangle-alias" />
 
-		<bean id="circle" class="org.tomasz.shapes.Circle">
+<!-- 		<bean id="circle" class="org.tomasz.shapes.Circle"> -->
 			<!-- <property name="center" ref="pointA" /> -->
-		</bean>
+<!-- 		</bean> -->
 
 		<!-- this is all it takes to register postprocessor -->
 		<!-- <bean class="org.tomasz.shapes.DisplayNameBeanPostProcessor"/> -->
@@ -125,6 +125,17 @@
 	<!-- <bean -->
 	<!-- class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" 
 		/> -->
+		
+		<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+			<property name="basenames">
+				<list>
+					<value>mymessages</value>
+				</list>
+			</property>
+		</bean>
+		
 <!-- 		declares all the annotation post processors automatically -->
 	<context:annotation-config/>
+<!-- 	makes spring look for beans with @Component annotation -->
+	<context:component-scan base-package="org.tomasz.shapes"/>
 	</beans>

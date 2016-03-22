@@ -7,15 +7,24 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 
+// used to declare bean, instead of using xml, there's also Service, Repository, and Controller
+// for marking different types of beans
+@Component
 public class Circle implements Shape {
 
 	private Point center;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@Override
 	public void draw() {
 		System.out.println("Drawing Circle...");
-		System.out.println("Center point is: " + center.getX() + ", " + center.getY());
+		System.out.println(messageSource.getMessage("drawing.point", new Object[] {center.getX(), center.getY()}, "Default drawing point message", null));
+		System.out.println("Message from within a bean: " + messageSource.getMessage("greeting", null, "Default Message", null));
 	}
 
 	public Point getCenter() {
@@ -47,5 +56,14 @@ public class Circle implements Shape {
 	@PreDestroy
 	public void destroyCircle() {
 		System.out.println("Destruction of Circle");
+	}
+
+	public MessageSource getMessageSource() {
+		return messageSource;
+	}
+
+	
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 }

@@ -26,6 +26,7 @@ public class DrawingApp {
 		// works for any class implementing the Shape interface
 		Shape shape = (Shape) context.getBean("circle");
 		shape.draw();
+		
+//		System.out.println(context.getMessage("greeting", null, "Default Message", null));
 	}
-
 }
