@@ -11,7 +11,8 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="triangle1" class="org.tomasz.shapes.Triangle" parent="parenttriangle">
+<!-- 	init-method and destroy-method can be declared globally for all <beans> through default-init-method etc. -->
+	<bean id="triangle1" class="org.tomasz.shapes.Triangle" parent="parenttriangle" init-method="myInit" destroy-method="myCleanup">
 		<property name="points">
 <!-- 			merging inherits properties from the parent, works for collections -->
 			<list merge="true">
@@ -19,9 +20,9 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="triangle2" class="org.tomasz.shapes.Triangle" parent="parenttriangle">
-		<property name="pointB" ref="pointB"/>
-	</bean>
+<!-- 	<bean id="triangle2" class="org.tomasz.shapes.Triangle" parent="parenttriangle"> -->
+<!-- 		<property name="pointB" ref="pointB"/> -->
+<!-- 	</bean> -->
 
 	<!-- prototypes get initialized upon referencing/get bean requests; singleton 
 		is the default scope, it gets initialized once inside the container -->
@@ -90,4 +91,7 @@
 	<!-- It's a better idea to use ids for reference, but for some reason one 
 		can also employ aliasing -->
 	<alias name="triangle" alias="triangle-alias" />
+	
+<!-- 	this is all it takes to register postprocessor -->
+	<bean class="org.tomasz.shapes.DisplayNameBeanPostProcessor"/>
 </beans>
