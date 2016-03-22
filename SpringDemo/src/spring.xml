@@ -2,26 +2,30 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
-<!-- 	abstract means the bean will not get automatically initialized -->
-	<bean id="parenttriangle" class="org.tomasz.shapes.Triangle" abstract="true">
-<!-- 		<property name="pointA" ref="pointA"/> -->
+	<!-- abstract means the bean will not get automatically initialized -->
+	<bean id="parenttriangle" class="org.tomasz.shapes.Triangle"
+		abstract="true">
+		<!-- <property name="pointA" ref="pointA"/> -->
 		<property name="points">
 			<list>
-				<ref bean="pointA"/>
+				<ref bean="pointA" />
 			</list>
 		</property>
 	</bean>
-	<bean id="triangle1" class="org.tomasz.shapes.Triangle" parent="parenttriangle">
+	<!-- init-method and destroy-method can be declared globally for all <beans> 
+		through default-init-method etc. -->
+	<bean id="triangle1" class="org.tomasz.shapes.Triangle" parent="parenttriangle"
+		init-method="myInit" destroy-method="myCleanup">
 		<property name="points">
-<!-- 			merging inherits properties from the parent, works for collections -->
+			<!-- merging inherits properties from the parent, works for collections -->
 			<list merge="true">
-				<ref bean="pointB"/>
+				<ref bean="pointB" />
 			</list>
 		</property>
 	</bean>
-	<bean id="triangle2" class="org.tomasz.shapes.Triangle" parent="parenttriangle">
-		<property name="pointB" ref="pointB"/>
-	</bean>
+	<!-- <bean id="triangle2" class="org.tomasz.shapes.Triangle" parent="parenttriangle"> -->
+	<!-- <property name="pointB" ref="pointB"/> -->
+	<!-- </bean> -->
 
 	<!-- prototypes get initialized upon referencing/get bean requests; singleton 
 		is the default scope, it gets initialized once inside the container -->
@@ -73,8 +77,9 @@
 	<!-- for autowiring to work, beans to have the same names as the variables 
 		declared in the main bean -->
 	<bean id="pointA" class="org.tomasz.shapes.Point">
-		<property name="x" value="0" />
-		<property name="y" value="0" />
+		<!-- refers to pointsconfig.properties -->
+		<property name="x" value="${pointA.pointX}" />
+		<property name="y" value="${pointA.pointY}" />
 	</bean>
 
 	<bean id="pointB" class="org.tomasz.shapes.Point">
@@ -90,4 +95,21 @@
 	<!-- It's a better idea to use ids for reference, but for some reason one 
 		can also employ aliasing -->
 	<alias name="triangle" alias="triangle-alias" />
+	
+	<bean id="circle" class="org.tomasz.shapes.Circle">
+		<property name="center" ref="pointA" />
+	</bean>
+
+	<!-- this is all it takes to register postprocessor -->
+	<!-- <bean class="org.tomasz.shapes.DisplayNameBeanPostProcessor"/> -->
+
+	<!-- gets called upon the initialization of bean factory/context (prior 
+		to all the beans) -->
+	<!-- <bean class="org.tomasz.shapes.MyBeanFactoryPostProcessor" /> -->
+
+	<!-- needed for externalized properties configs -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="pointsconfig.properties" />
+	</bean>
 </beans>
