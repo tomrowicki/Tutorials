@@ -1,115 +1,130 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-<beans>
-	<!-- abstract means the bean will not get automatically initialized -->
-	<bean id="parenttriangle" class="org.tomasz.shapes.Triangle"
-		abstract="true">
-		<!-- <property name="pointA" ref="pointA"/> -->
-		<property name="points">
-			<list>
-				<ref bean="pointA" />
-			</list>
-		</property>
-	</bean>
-	<!-- init-method and destroy-method can be declared globally for all <beans> 
-		through default-init-method etc. -->
-	<bean id="triangle1" class="org.tomasz.shapes.Triangle" parent="parenttriangle"
-		init-method="myInit" destroy-method="myCleanup">
-		<property name="points">
-			<!-- merging inherits properties from the parent, works for collections -->
-			<list merge="true">
-				<ref bean="pointB" />
-			</list>
-		</property>
-	</bean>
-	<!-- <bean id="triangle2" class="org.tomasz.shapes.Triangle" parent="parenttriangle"> -->
-	<!-- <property name="pointB" ref="pointB"/> -->
-	<!-- </bean> -->
-
-	<!-- prototypes get initialized upon referencing/get bean requests; singleton 
-		is the default scope, it gets initialized once inside the container -->
-	<bean id="triangle" class="org.tomasz.shapes.Triangle" autowire="byName"
-		scope="prototype">
-		<!-- <property name="type" value="Equilateral" /> -->
-
-		<!-- <constructor-arg value="Equilateral"/> -->
-		<!-- <constructor-arg value="20"/> -->
-
-		<!-- <constructor-arg type="int" value="20"/> -->
-		<!-- <constructor-arg type="java.lang.String" value="Equilateral"/> -->
-
-		<!-- <constructor-arg index="0" value="Equilateral"/> -->
-		<!-- <constructor-arg index="1" value="20"/> -->
-
-		<!-- <property name="pointA"/> -->
-		<!-- idref makes sure to refer using id -->
-		<!-- <property name="pointA"> -->
-		<!-- <ref bean="zeroPoint" /> -->
-		<!-- </property> -->
-		<!-- <property name="pointB" ref="point2" /> -->
-		<!-- <property name="pointC" ref="point3" /> -->
-		<!-- <property name="pointB" ref="point2" /> -->
-		<!-- <property name="pointC" ref="point3" /> -->
+		<!-- abstract means the bean will not get automatically initialized -->
+		<bean id="parenttriangle" class="org.tomasz.shapes.Triangle"
+			abstract="true">
+			<!-- <property name="pointA" ref="pointA"/> -->
+			<property name="points">
+				<list>
+					<ref bean="pointA" />
+				</list>
+			</property>
+		</bean>
+		<!-- init-method and destroy-method can be declared globally for all <beans> 
+			through default-init-method etc. -->
+		<!-- <bean id="triangle1" class="org.tomasz.shapes.Triangle" parent="parenttriangle" -->
+		<!-- init-method="myInit" destroy-method="myCleanup"> -->
 		<!-- <property name="points"> -->
-		<!-- <list> -->
-		<!-- <ref bean="zeroPoint"/> -->
-		<!-- <ref bean="point2"/> -->
-		<!-- <ref bean="point3"/> -->
+		<!-- merging inherits properties from the parent, works for collections -->
+		<!-- <list merge="true"> -->
+		<!-- <ref bean="pointB" /> -->
 		<!-- </list> -->
 		<!-- </property> -->
-	</bean>
+		<!-- </bean> -->
+		<!-- <bean id="triangle2" class="org.tomasz.shapes.Triangle" parent="parenttriangle"> -->
+		<!-- <property name="pointB" ref="pointB"/> -->
+		<!-- </bean> -->
 
-	<!-- <bean id="zeroPoint" class="org.tomasz.shapes.Point"> -->
-	<!-- <property name="x" value="0" /> -->
-	<!-- <property name="y" value="0" /> -->
-	<!-- </bean> -->
+		<!-- prototypes get initialized upon referencing/get bean requests; singleton 
+			is the default scope, it gets initialized once inside the container -->
+		<bean id="triangle" class="org.tomasz.shapes.Triangle" autowire="byName"
+			scope="prototype">
+			<!-- <property name="type" value="Equilateral" /> -->
 
-	<!-- <bean id="point2" class="org.tomasz.shapes.Point"> -->
-	<!-- <property name="x" value="-20" /> -->
-	<!-- <property name="y" value="0" /> -->
-	<!-- </bean> -->
+			<!-- <constructor-arg value="Equilateral"/> -->
+			<!-- <constructor-arg value="20"/> -->
 
-	<!-- <bean id="point3" class="org.tomasz.shapes.Point"> -->
-	<!-- <property name="x" value="20" /> -->
-	<!-- <property name="y" value="0" /> -->
-	<!-- </bean> -->
-	<!-- for autowiring to work, beans to have the same names as the variables 
-		declared in the main bean -->
-	<bean id="pointA" class="org.tomasz.shapes.Point">
+			<!-- <constructor-arg type="int" value="20"/> -->
+			<!-- <constructor-arg type="java.lang.String" value="Equilateral"/> -->
+
+			<!-- <constructor-arg index="0" value="Equilateral"/> -->
+			<!-- <constructor-arg index="1" value="20"/> -->
+
+			<!-- <property name="pointA"/> -->
+			<!-- idref makes sure to refer using id -->
+			<!-- <property name="pointA"> -->
+			<!-- <ref bean="zeroPoint" /> -->
+			<!-- </property> -->
+			<!-- <property name="pointB" ref="point2" /> -->
+			<!-- <property name="pointC" ref="point3" /> -->
+			<!-- <property name="pointB" ref="point2" /> -->
+			<!-- <property name="pointC" ref="point3" /> -->
+			<!-- <property name="points"> -->
+			<!-- <list> -->
+			<!-- <ref bean="zeroPoint"/> -->
+			<!-- <ref bean="point2"/> -->
+			<!-- <ref bean="point3"/> -->
+			<!-- </list> -->
+			<!-- </property> -->
+		</bean>
+
+		<!-- <bean id="zeroPoint" class="org.tomasz.shapes.Point"> -->
+		<!-- <property name="x" value="0" /> -->
+		<!-- <property name="y" value="0" /> -->
+		<!-- </bean> -->
+
+		<!-- <bean id="point2" class="org.tomasz.shapes.Point"> -->
+		<!-- <property name="x" value="-20" /> -->
+		<!-- <property name="y" value="0" /> -->
+		<!-- </bean> -->
+
+		<!-- <bean id="point3" class="org.tomasz.shapes.Point"> -->
+		<!-- <property name="x" value="20" /> -->
+		<!-- <property name="y" value="0" /> -->
+		<!-- </bean> -->
+		<!-- for autowiring to work, beans to have the same names as the variables 
+			declared in the main bean -->
+		<bean id="pointA" class="org.tomasz.shapes.Point">
+			<qualifier value="circleRelated" />
+			<!-- refers to pointsconfig.properties -->
+			<property name="x" value="${pointA.pointX}" />
+			<property name="y" value="${pointA.pointY}" />
+		</bean>
+
+		<bean id="pointB" class="org.tomasz.shapes.Point">
+			<property name="x" value="-20" />
+			<property name="y" value="0" />
+		</bean>
+
+		<bean id="pointC" class="org.tomasz.shapes.Point">
+			<property name="x" value="20" />
+			<property name="y" value="0" />
+		</bean>
+
+		<!-- <bean id="center" class="org.tomasz.shapes.Point"> -->
 		<!-- refers to pointsconfig.properties -->
-		<property name="x" value="${pointA.pointX}" />
-		<property name="y" value="${pointA.pointY}" />
-	</bean>
+		<!-- <property name="x" value="${pointA.pointX}" /> -->
+		<!-- <property name="y" value="${pointA.pointY}" /> -->
+		<!-- </bean> -->
 
-	<bean id="pointB" class="org.tomasz.shapes.Point">
-		<property name="x" value="-20" />
-		<property name="y" value="0" />
-	</bean>
+		<!-- It's a better idea to use ids for reference, but for some reason one 
+			can also employ aliasing -->
+		<alias name="triangle" alias="triangle-alias" />
 
-	<bean id="pointC" class="org.tomasz.shapes.Point">
-		<property name="x" value="20" />
-		<property name="y" value="0" />
-	</bean>
+		<bean id="circle" class="org.tomasz.shapes.Circle">
+			<!-- <property name="center" ref="pointA" /> -->
+		</bean>
 
-	<!-- It's a better idea to use ids for reference, but for some reason one 
-		can also employ aliasing -->
-	<alias name="triangle" alias="triangle-alias" />
-	
-	<bean id="circle" class="org.tomasz.shapes.Circle">
-		<property name="center" ref="pointA" />
-	</bean>
+		<!-- this is all it takes to register postprocessor -->
+		<!-- <bean class="org.tomasz.shapes.DisplayNameBeanPostProcessor"/> -->
 
-	<!-- this is all it takes to register postprocessor -->
-	<!-- <bean class="org.tomasz.shapes.DisplayNameBeanPostProcessor"/> -->
+		<!-- gets called upon the initialization of bean factory/context (prior 
+			to all the beans) -->
+		<!-- <bean class="org.tomasz.shapes.MyBeanFactoryPostProcessor" /> -->
 
-	<!-- gets called upon the initialization of bean factory/context (prior 
-		to all the beans) -->
-	<!-- <bean class="org.tomasz.shapes.MyBeanFactoryPostProcessor" /> -->
+		<!-- needed for externalized properties configs -->
+		<bean
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations" value="pointsconfig.properties" />
+		</bean>
 
-	<!-- needed for externalized properties configs -->
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="pointsconfig.properties" />
-	</bean>
-</beans>
+		<!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" 
+			/> -->
+	<!-- <bean -->
+	<!-- class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" 
+		/> -->
+<!-- 		declares all the annotation post processors automatically -->
+	<context:annotation-config/>
+	</beans>

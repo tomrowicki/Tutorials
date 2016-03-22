@@ -127,7 +127,6 @@ public class Triangle implements ApplicationContextAware, BeanNameAware, Initial
 	// this is executed just before the destruction of the bean
 	@Override
 	public void destroy() throws Exception {
-		// TODO Auto-generated method stub
 		System.out.println("The bean is about to get destroyed!");
 	}
 

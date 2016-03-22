@@ -20,8 +20,8 @@ public class DrawingApp {
 		context.registerShutdownHook();
 		//Triangle triangle = (Triangle) factory.getBean("triangle"); // reference to spring.xml
 //		Triangle triangle = (Triangle) context.getBean("triangle-alias");
-        Triangle triangle = (Triangle) context.getBean( "triangle1" );
-		triangle.draw();
+//        Triangle triangle = (Triangle) context.getBean( "triangle1" );
+//		triangle.draw();
 		
 		// works for any class implementing the Shape interface
 		Shape shape = (Shape) context.getBean("circle");
