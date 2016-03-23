@@ -136,6 +136,6 @@
 		
 <!-- 		declares all the annotation post processors automatically -->
 	<context:annotation-config/>
-<!-- 	makes spring look for beans with @Component annotation -->
+<!-- 	makes spring look for beans with @Component (also Service, Repository, and Controller)  annotation -->
 	<context:component-scan base-package="org.tomasz.shapes"/>
 	</beans>
